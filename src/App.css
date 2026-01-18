@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  background-color: rgb(33, 33, 33);
+  color: white;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.services-container {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.service-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.loader {
+  width: 42px;
+  height: 42px;
+}
+
+.details-container {
+  width: 340px;
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+  border: 1px solid white;
+  margin: 20px;
+}
+
+.details-name {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.details-price {
+  margin-top: 50px;
+  align-self: end;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 0, 0, 0.116);
+  border: 1px solid rgb(96, 8, 8);
+  padding: 10px;
+}
+
+.error-message {
+  color: rgb(228, 188, 188);
+  background-color: transparent
+}
+
+.error-btn {
+  background-color: rgb(52, 52, 52);
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+}
