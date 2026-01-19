@@ -10,15 +10,14 @@ import {
   getDetailsFailure,
 } from "./detailsSlice";
 import type { ServicesType, DetailsType } from "../serviceTypes";
-
-const url = "http://localhost:7070/api/services";
+import { fetchServices, fetchDetails } from "../api";
 
 function* workGetServiceListFetch() {
   try {
-    const response: Response = yield call(fetch, url);
-    const data: ServicesType = yield call([response, "json"]);
+    const data: ServicesType = yield call(fetchServices);
     yield put(getServiceListSuccess(data));
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
     yield put(getServiceListFailure());
   }
 }
@@ -29,10 +28,10 @@ function* serviceSaga() {
 
 function* workGetDetailsFetch(action: ReturnType<typeof getDetailsRequired>) {
   try {
-    const response: Response = yield call(fetch, `${url}/${action.payload}`);
-    const data: DetailsType = yield call([response, "json"]);
+    const data: DetailsType = yield call(fetchDetails, action.payload);
     yield put(getDetailsSuccess(data));
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
     yield put(getDetailsFailure());
   }
 }

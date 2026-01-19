@@ -6,7 +6,7 @@ import { Service } from "./Service";
 type ServicesProps = {
   services: ServicesType;
   status: string;
-  repeatFetchRequest: () => {};
+  repeatFetchRequest: () => void;
 };
 
 export function ServiceList({ services, status, repeatFetchRequest }: ServicesProps) { 

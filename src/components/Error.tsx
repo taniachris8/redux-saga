@@ -1,5 +1,5 @@
 type ErrorProps = {
-  repeatFetchRequest: () => {};
+  repeatFetchRequest: () => void;
 };
 
 export function Error({ repeatFetchRequest }: ErrorProps) {

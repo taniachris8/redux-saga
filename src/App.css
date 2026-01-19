@@ -36,7 +36,7 @@
 
 .details-container {
   width: 340px;
-   display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 30px;
@@ -67,7 +67,7 @@
 
 .error-message {
   color: rgb(228, 188, 188);
-  background-color: transparent
+  background-color: transparent;
 }
 
 .error-btn {
@@ -75,4 +75,11 @@
   cursor: pointer;
   border: none;
   padding: 10px;
+}
+
+.not-found-page-container {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

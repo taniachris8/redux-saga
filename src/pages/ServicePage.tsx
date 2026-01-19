@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailsRequired } from "../state/detailsSlice";
 import { Loader } from "../components/Loader";
 import { Error } from "../components/Error";
+import type { RootState } from "../state/store";
 
 export function ServicePage() {
   const { id } = useParams();
@@ -13,16 +14,23 @@ export function ServicePage() {
     if (id) {
       dispatch(getDetailsRequired(id));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
-  const details = useSelector((state) => state.details);
-  console.log("details from Details Page", details);
+  const details = useSelector((state: RootState) => state.details);
+
+  const repeatFetchRequest = () => {
+    if (id) {
+      dispatch(getDetailsRequired(id));
+    }
+  };
 
   return (
     <>
       <div className="details-container">
         {details.status === "loading" && <Loader />}
-        {details.status === "failed" && <Error repeatFetchRequest={(id: string) => dispatch(getDetailsRequired(id))} />}
+        {details.status === "failed" && (
+          <Error repeatFetchRequest={repeatFetchRequest} />
+        )}
         {details.status === "succeeded" && details.data && (
           <>
             <p className="details-name">{details.data.name}</p>

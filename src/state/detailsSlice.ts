@@ -1,35 +1,32 @@
 import {
-  createSlice,
+  createSlice
 } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import type { DetailsType } from "../serviceTypes";
 
 interface DetailsState {
   status: "idle" | "loading" | "succeeded" | "failed";
   data: DetailsType | null;
-  error: string;
 }
 
 const initialState: DetailsState = {
   status: "idle",
   data: null,
-  error: "",
 };
 
 const detailsSlice = createSlice({
   name: "details",
   initialState,
   reducers: {
-    getDetailsRequired: (state) => {
+    getDetailsRequired: (state, _action: PayloadAction<string>) => {
       state.status = "loading";
-      state.error = "";
     },
-    getDetailsSuccess: (state, action) => {
+    getDetailsSuccess: (state, action: PayloadAction<DetailsType>) => {
       state.data = action.payload;
       state.status = "succeeded";
     },
     getDetailsFailure: (state) => {
       state.status = "failed";
-      state.error = "Failed to load services";
     },
   },
 });
