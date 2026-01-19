@@ -2,27 +2,21 @@ import './App.css'
 import { useEffect } from 'react';
 import { ServiceList } from './components/ServiceList'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchServices } from './state/servicesSlice';
+import { getServiceListRequired } from "./state/servicesSlice";
 
 function App() {
   const dispatch = useDispatch();
 
 useEffect(() => {
-  try {
-    dispatch(fetchServices());
-  } catch (error) { 
-    console.log(error)
-  }
-  
- 
-}, []);
+  dispatch(getServiceListRequired());
+}, [dispatch]);
   
   const services = useSelector((state => state.services))
   console.log("services from App", services)
  
   return (
     <>
-      <ServiceList services={services.data} status={services.status} error={ services.error} />
+      <ServiceList services={services.data} status={services.status} error={services.error} repeatFetchRequest={() =>  dispatch(getServiceListRequired()) } />
     </>
   ); 
 

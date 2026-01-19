@@ -1,8 +1,16 @@
-export function Error() { 
-    return (<>
-        <div className="error-container">
-            <div className="error-message">Произошла ошибка!</div>
-            <button className="error-btn">Повторить запрос</button>
-        </div>
-    </>)
+type ErrorProps = {
+  repeatFetchRequest: () => {};
+};
+
+export function Error({ repeatFetchRequest }: ErrorProps) {
+  return (
+    <>
+      <div className="error-container">
+        <div className="error-message">Произошла ошибка!</div>
+        <button onClick={repeatFetchRequest} className="error-btn">
+          Повторить запрос
+        </button>
+      </div>
+    </>
+  );
 }

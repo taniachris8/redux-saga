@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetails } from "../state/detailsSlice";
+import { getDetailsRequired } from "../state/detailsSlice";
 import { Loader } from "../components/Loader";
 import { Error } from "../components/Error";
 
@@ -11,7 +11,7 @@ export function ServicePage() {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchDetails(id));
+      dispatch(getDetailsRequired(id));
     }
   }, [id]);
 
@@ -22,7 +22,7 @@ export function ServicePage() {
     <>
       <div className="details-container">
         {details.status === "loading" && <Loader />}
-        {details.status === "failed" && <Error />}
+        {details.status === "failed" && <Error repeatFetchRequest={(id: string) => dispatch(getDetailsRequired(id))} />}
         {details.status === "succeeded" && details.data && (
           <>
             <p className="details-name">{details.data.name}</p>

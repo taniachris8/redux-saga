@@ -4,20 +4,25 @@ import { Loader } from "./Loader";
 import { Service } from "./Service";
 
 type ServicesProps = {
-    services: ServicesType;
+  services: ServicesType;
   status: string;
-  error: string;
+  repeatFetchRequest: () => {};
 };
 
-export function ServiceList({ services, status, error }: ServicesProps) { 
+export function ServiceList({ services, status, repeatFetchRequest }: ServicesProps) { 
 
     return (
       <>
         <div className="services-container">
           {status === "loading" && <Loader />}
-          { status === "failed" && <Error/>}
+          {status === "failed" && (
+            <Error repeatFetchRequest={repeatFetchRequest} />
+          )}
           {status === "succeeded" &&
-            services.map((service: ServiceType) => <Service key={service.id} service={service} />)}
+            services.length !== 0 &&
+            services.map((service: ServiceType) => (
+              <Service key={service.id} service={service} />
+            ))}
         </div>
       </>
     );

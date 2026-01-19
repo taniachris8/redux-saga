@@ -1,21 +1,7 @@
-
 import {
-  createAsyncThunk,
   createSlice,
-  type PayloadAction,
 } from "@reduxjs/toolkit";
 import type { DetailsType } from "../serviceTypes";
-
-const url = "http://localhost:7070/api/services/";
-
-export const fetchDetails = createAsyncThunk(
-  "service/details",
-  async (id: string) => {
-    const response = await fetch(url + id);
-    const result = await response.json();
-    return result;
-  }
-);
 
 interface DetailsState {
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -32,24 +18,23 @@ const initialState: DetailsState = {
 const detailsSlice = createSlice({
   name: "details",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchDetails.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(
-        fetchDetails.fulfilled,
-        (state, action: PayloadAction<DetailsType>) => {
-          state.status = "succeeded";
-          state.data = action.payload;
-        }
-      )
-      .addCase(fetchDetails.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload
-      });
+  reducers: {
+    getDetailsRequired: (state) => {
+      state.status = "loading";
+      state.error = "";
+    },
+    getDetailsSuccess: (state, action) => {
+      state.data = action.payload;
+      state.status = "succeeded";
+    },
+    getDetailsFailure: (state) => {
+      state.status = "failed";
+      state.error = "Failed to load services";
+    },
   },
 });
+
+export const { getDetailsRequired, getDetailsSuccess, getDetailsFailure } =
+  detailsSlice.actions;
 
 export default detailsSlice.reducer;
